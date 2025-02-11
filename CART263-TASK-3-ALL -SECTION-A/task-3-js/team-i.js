@@ -102,6 +102,7 @@ function setup_I() {
    *  - you can use simple shapes and colors, images etc...
    * 2: add in a / some mouse click event listener(s) somewhere to make the sketch interactive
 
+
    *
    * NOTE::: PLEASE::: if you add any custom css PLEASE use the style.css and prefix any class names with your team label
    * i.e. you want to create a custom div class and you are in "Team_A" then call your class TEAM_A_ANI_A_Div -
@@ -111,7 +112,7 @@ function setup_I() {
    * Do not change any code above or the HTML markup.
    * **/
   function aniB(parentCanvas) {
-    console.log("in B");
+
   }
   /**************** ANI C ************************************ */
   /** PUT ALL YOUR CODE FOR INTERACTIVE PATTERN C INSIDE  HERE */
@@ -122,6 +123,7 @@ function setup_I() {
    * 2: create an interactive pattern/sketch based on keyboard input. Anything goes.
    * do not use  requestAnimationFrame(), setInterval() nor setTimeout() -> meaning keep it simple ;)
    * 
+   
    * NOTE::: PLEASE::: if you add any custom css PLEASE use the style.css and prefix any class names with your team label
    * i.e. you want to create a custom div class and you are in "Team_A" then call your class TEAM_A_ANI_A_Div -
    * this is so that your styles are not overriden by other teams.
@@ -130,32 +132,62 @@ function setup_I() {
    * Do not change any code above or the HTML markup.
    * **/
 
+function aniC(parentCanvas) {
+  console.log("in C");
+  //increasingly maximalist vegetarian recipe generator/
 
-  function aniC(parentCanvas) {
+  let dosage = 1;
+  let fontSize = 10;
 
-    console.log("in C");
-    /*** THIS IS THE CALLBACK FOR KEY DOWN ( DO NOT CHANGE THE NAME..) */
-    windowKeyDownRef = function (e) {
-      //code for key down in here
-      console.log(e)
-      //SAMPLE KEY CHECK (you do not have to use)
-      if (e.code === "Space") {
-        console.log("team-space down")
-      }
-    };
+  let recipeRandomizer = ["cup of milk", " cashew nut", "leek", "tbspn of ghee", "tbspn of olive oil", "apricot", "egg yolk", "egg white", "onion", "spring onion", "garlic clove", "tbspn of honey", "pinch of salt", "potato", "sweet potato", "sage leaf(for taste)", "tbspn of ginger powder (adds a kick)", "sliced mushroom", "tbspn of tomato paste"];
 
-    /*** THIS IS THE CALLBACK FOR KEY UP ( DO NOT CHANGE THE NAME..) */
-    windowKeyUpRef = function (e) {
-    //SAMPLE KEY CHECK (you do not have to use)
-      if (e.code === "Space") {
-        console.log("space up");
-        console.log("team-space up")
-      }
+  /*** THIS IS THE CALLBACK FOR KEY DOWN (DO NOT CHANGE THE NAME..) */
+  windowKeyDownRef = function (e) {
 
-    };
+    if (e.code === "Space") {
+      console.log("team-space down");
+      e.preventDefault();
 
-    //DO NOT REMOVE
-    window.addEventListener("keydown", windowKeyDownRef);
-    window.addEventListener("keyup", windowKeyUpRef);
-  }
+//background color changes each time/
+      const randomColor = getRandomColor();
+      parentCanvas.style.backgroundColor = randomColor;
+      let randomIndex = Math.floor(Math.random() * recipeRandomizer.length);
+
+//so does the ingredient
+      let newWord = document.createElement("span");
+      newWord.textContent = "+"+dosage+recipeRandomizer[randomIndex];
+      newWord.classList.add("TEAM_I_word");
+      newWord.style.fontSize = fontSize + "px";
+      parentCanvas.appendChild(newWord);
+
+      //progressively larger quantities and font size/
+      dosage++;
+      fontSize += 3;
+
+    }
+  };
+
+    //function to generate a random background color/
+    function getRandomColor() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+  
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+  /*** THIS IS THE CALLBACK FOR KEY UP (DO NOT CHANGE THE NAME..) */
+  windowKeyUpRef = function (e) {
+    if (e.code === "Space") {
+      console.log("space up");
+      console.log("team-space up");
+    }
+  };
+
+  // DO NOT REMOVE
+  window.addEventListener("keydown", windowKeyDownRef);
+  window.addEventListener("keyup", windowKeyUpRef);
+
+
+}
 }
